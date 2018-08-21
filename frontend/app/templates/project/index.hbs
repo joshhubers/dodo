@@ -1,0 +1,22 @@
+<div class="spaced">
+  <h2>Projects</h2>
+  <button {{action 'showModal'}}>New Project</button>
+</div>
+
+{{#project-loader as |projects isLoading|}}
+  {{#if isLoading}}
+
+  {{else}}
+    {{#each projects as |project|}}
+      {{info-tile
+          title=project.name
+          description=project.description}}
+    {{/each}}
+  {{/if}}
+{{/project-loader}}
+
+{{#if isShowingModal}}
+  {{project-edit-modal
+    onClose=(action 'onClose')
+    project=selectedProject}}
+{{/if}}

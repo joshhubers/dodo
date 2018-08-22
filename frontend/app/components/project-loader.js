@@ -1,19 +1,24 @@
 import Component from '@ember/component';
+import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
+import gql from "graphql-tag";
 
-export default Component.extend({
+export default Component.extend(ComponentQueryManager, {
   isLoading: true,
   projects: null,
 
   didInsertElement() {
     this.set('isLoading', false);
 
-    const projects = [
-      { name: 'foo', description: 'Test description 1'},
-      { name: 'bar', description: 'Test description 2'},
-      { name: 'fizz', description: 'Test description 3'},
-      { name: 'buzz', description: 'Test description 4'},
-    ];
-
-    this.set('projects', projects);
+    const allQuery = gql`
+      query {
+        allProjects {
+          title
+          description
+        }
+      }
+    `
+    return this.get('apollo').watchQuery({ query: allQuery }).then(returned => {
+      this.set('projects', returned.allProjects);
+    });
   }
 });

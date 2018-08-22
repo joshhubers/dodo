@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    content: {
+    description: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Project.associate = function(models) {
     // A Project belongs to a user
-    Project.belongsTo(models.User);
+    //Project.belongsTo(models.User);
   };
 
   return Project;

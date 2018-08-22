@@ -69,3 +69,6 @@ npm-debug.log
 *.tar.gz
 *.log
 
+*.swo
+*.swp
+*.swn

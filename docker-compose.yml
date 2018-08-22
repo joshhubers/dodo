@@ -1,9 +1,10 @@
 version: '3'
-
 services:
-  image: 'postgres:9.6-alpine'
-  environment:
-    POSTGRES_USER: 'postgres_user'
-    POSTGRES_PASSWORD: 'postgres_pass'
+  dodo-db:
+    image: 'postgres:9.6-alpine'
+    environment:
+      POSTGRES_USER: 'postgres_user'
+      POSTGRES_PASSWORD: 'postgres_pass'
+      POSTGRES_DB: 'dodo_db'
     ports:
       - '5432:5432'

@@ -21,15 +21,15 @@ export default Component.extend(ComponentQueryManager, {
     return this.get('apollo').watchQuery({ query: allQuery }).then(returned => {
       this.set('projects', returned.allProjects);
     });
-  }
+  },
 
   actions: {
     addNewProject(title, description) {
       // Call index action first
       //
       // then add to my collection the result
-      const project = await this.createProject(title, description);
-      this.projects.pushObject(project);
+      //const project = await this.createProject(title, description);
+      //this.projects.pushObject(project);
     },
   }
 });

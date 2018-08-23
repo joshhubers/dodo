@@ -86,14 +86,15 @@ const resolvers = {
         // Add a new post
         async addProject(_, { title, description, status }, { authUser }) {
             // Make sure user is logged in
-            if (!authUser) {
-                throw new Error('You must log in to continue!')
-            }
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
 
-            const user = await User.findOne({ where: { id: authUser.id } });
+            //const user = await User.findOne({ where: { id: authUser.id } });
 
             const project = await Project.create({
-                userId: user.id,
+                //userId: user.id,
+                userId: 1,
                 title,
                 description,
                 status

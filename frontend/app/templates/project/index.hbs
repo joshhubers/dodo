@@ -3,7 +3,7 @@
   <button {{action 'showModal'}}>New Project</button>
 </div>
 
-{{#project-loader as |projects isLoading|}}
+{{#project-loader addAction=(action 'createProject') as |projects isLoading addNewProject|}}
   {{#if isLoading}}
 
   {{else}}
@@ -13,10 +13,12 @@
           description=project.description}}
     {{/each}}
   {{/if}}
+
+  {{#if isShowingModal}}
+    {{project-edit-modal
+      onClose=(action 'onClose')
+      createProject=addNewProject
+      project=selectedProject}}
+  {{/if}}
 {{/project-loader}}
 
-{{#if isShowingModal}}
-  {{project-edit-modal
-    onClose=(action 'onClose')
-    project=selectedProject}}
-{{/if}}

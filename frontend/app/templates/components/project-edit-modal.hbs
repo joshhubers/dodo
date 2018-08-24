@@ -3,9 +3,9 @@
   onClose="onClose"
   translucentOverlay=true}}
   <div>Name</div>
-  {{input value=projectName}}
+  {{input value=project.title}}
   <div>Description</div>
-  {{input value=projectDescription}}
+  {{input value=project.description}}
 
-  <button {{action 'createProject'}}>Create</button>
+  <button {{action 'saveProject'}}>Save</button>
 {{/modal-dialog}}

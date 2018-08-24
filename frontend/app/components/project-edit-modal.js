@@ -1,15 +1,23 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  projectName: '',
-  projectDescription: '',
+  project: null,
+
+  save() {
+    if(this.project.id) {
+      this.updateProject(this.project);
+    } else {
+      this.createProject(this.project);
+    }
+  },
 
   actions: {
     onClose() {
+      this.save();
       this.onClose();
     },
-    createProject() {
-      this.createProject(this.projectName, this.projectDescription);
+    saveProject() {
+      this.save();
     },
   }
 });

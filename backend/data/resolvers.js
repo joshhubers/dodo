@@ -106,9 +106,9 @@ const resolvers = {
         // Update a particular post
         async updateProject(_, { id, title, description, status }, { authUser }) {
             // Make sure user is logged in
-            if (!authUser) {
-                throw new Error('You must log in to continue!')
-            }
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
 
             // fetch the post by it ID
             const project = await Project.findById(id);
@@ -126,9 +126,9 @@ const resolvers = {
         // Delete a specified post
         async deleteProject(_, { id }, { authUser }) {
             // Make sure user is logged in
-            if (!authUser) {
-                throw new Error('You must log in to continue!')
-            }
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
 
             // fetch the post by it ID
             const project = await Project.findById(id);

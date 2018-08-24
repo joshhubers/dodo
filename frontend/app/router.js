@@ -7,7 +7,13 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('project', function() {});
+  this.route('project', function() {
+    this.route('show', { path: 'show/:id' });
+  });
+
+  this.route('thread', function() {
+    this.route('show');
+  });
 });
 
 export default Router;

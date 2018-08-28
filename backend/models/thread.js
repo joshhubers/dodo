@@ -1,3 +1,4 @@
+import { Project } from './project'
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Thread = sequelize.define('Thread', {
@@ -8,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         model: Project,
         key: 'id',
       }
-  }, {});
+    }
+  });
   Thread.associate = function(models) {
     // associations can be defined here
+    Thread.belongsTo(models.Project)
   };
   return Thread;
 };

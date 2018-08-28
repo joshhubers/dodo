@@ -2,7 +2,7 @@
 
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { User, Project } = require('../models');
+const { User, Project, Thread } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -27,6 +27,10 @@ const resolvers = {
         // Get a post by it ID
         async fetchProject(_, { id }) {
             return await Project.findById(id);
+        },
+
+        async fetchThreads(_, { id }) {
+          return await Thread.findAll({ where: { project_id: id }});
         },
     },
 

@@ -1,1 +1,7 @@
-{{outlet}}
+<div class="spaced">
+  <h2>Threads</h2>
+</div>
+
+{{#each threads as |thread|}}
+  <div>{{thread.title}}</div>
+{{/each}}

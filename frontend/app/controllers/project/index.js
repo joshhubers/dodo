@@ -84,7 +84,6 @@ export default Controller.extend({
           status: project.status,
         }
       }, "project").then(response => {
-        debugger;
         const newProject = {
           id: response.addProject.id,
           title: response.addProject.title,

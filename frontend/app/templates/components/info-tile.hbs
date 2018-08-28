@@ -1,5 +1,5 @@
 <h3 class="text-center">
-  {{#link-to "project.show" project}}{{project.title}}{{/link-to}}
+  {{#link-to "project.show" project.id}}{{project.title}}{{/link-to}}
 </h3>
 <button {{action 'deleteProject'}}>X</button>
 <button {{action 'editProject'}}>E</button>

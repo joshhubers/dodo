@@ -18,7 +18,7 @@ module.exports = {
     for(i = 0; i < 7*3; i++) {
       const t = {
         title: `Test Thread ${i}`,
-        project_id: 1,
+        project_id: (i % 6) + 1,
         createdAt: '2018-1-1',
         updatedAt: '2018-1-1',
       };

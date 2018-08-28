@@ -1,4 +1,6 @@
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
+import { RouteQueryManager } from "ember-apollo-client";
+import gql from "graphql-tag";
 
-export default Route.extend({
+export default Route.extend(RouteQueryManager, {
 });

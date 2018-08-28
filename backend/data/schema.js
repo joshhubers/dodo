@@ -22,11 +22,19 @@ const typeDefs = `
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
+    type Thread {
+        id: Int!
+        title: String!
+        Project: Project
+        createdAt: DateTime! # will be generated
+        updatedAt: DateTime! # will be generated
+    }
     type Query {
         allUsers: [User]
         fetchUser(id: Int!): User
         allProjects: [Project]
         fetchProject(id: Int!): Project
+        fetchThreads(id: Int!): [Thread]
     }
     type Mutation {
         login (

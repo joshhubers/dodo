@@ -19,13 +19,15 @@ const typeDefs = `
         description: String!
         status: String!
         user: User!
+        threads: [Thread]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
     type Thread {
         id: Int!
         title: String!
-        Project: Project
+        projectId: Int!
+        project: Project!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
@@ -66,6 +68,15 @@ const typeDefs = `
             status: String!,
         ): Project
         deleteProject (id: Int!): Boolean
+        addThread (
+            title: String!,
+            projectId: Int!,
+        ): Thread
+        updateThread (
+            id: Int!,
+            title: String!,
+        ): Thread
+        deleteThread (id: Int!): Boolean
     }
 `;
 module.exports = makeExecutableSchema({ typeDefs, resolvers });

@@ -4,7 +4,7 @@
 </div>
 
 {{#each projects as |project|}}
-  {{info-tile
+  {{project-tile
     deleteProject=(action 'deleteProject')
     editProject=(action 'editProject')
     project=project}}

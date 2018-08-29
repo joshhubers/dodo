@@ -26,11 +26,11 @@ const resolvers = {
 
         // Get a post by it ID
         async fetchProject(_, { id }) {
-            return await Project.findById(id);
+            return await Project.find({ where: { id }, include: [{ model: Thread, as:'threads' }]});
         },
 
         async fetchThreads(_, { id }) {
-          return await Thread.findAll({ where: { project_id: id }});
+          return await Thread.findAll({ where: { projectId: id }});
         },
     },
 
@@ -138,6 +138,55 @@ const resolvers = {
             const project = await Project.findById(id);
 
             return await project.destroy();
+        },
+
+        // Add a new thread
+        async addThread(_, { title, projectId }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            //const user = await User.findOne({ where: { id: authUser.id } });
+
+            const thread = await Thread.create({
+                //userId: user.id,
+                title,
+                projectId
+            });
+
+            return thread;
+        },
+
+        // Update a particular thread
+        async updateThread(_, { id, title }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            // fetch the post by it ID
+            const thread = await Thread.findById(id);
+
+            // Update the post
+            await thread.update({
+                title,
+            });
+
+            return thread;
+        },
+
+        // Delete a specified post
+        async deleteThread(_, { id }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            // fetch the post by it ID
+            const thread = await Thread.findById(id);
+
+            return await thread.destroy();
         },
     },
 

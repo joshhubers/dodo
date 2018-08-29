@@ -1,0 +1,9 @@
+{{#modal-dialog
+  containerClass="custom-modal"
+  onClose="onClose"
+  translucentOverlay=true}}
+  <div>Name</div>
+  {{input value=thread.title}}
+
+  <button {{action 'saveThread'}}>Save</button>
+{{/modal-dialog}}

@@ -3,7 +3,7 @@ import { Project } from './project'
 module.exports = (sequelize, DataTypes) => {
   const Thread = sequelize.define('Thread', {
     title: DataTypes.STRING,
-    project_id: {
+    projectId: {
       type: DataTypes.INTEGER,
       references: {
         model: Project,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Thread.associate = function(models) {
     // associations can be defined here
-    Thread.belongsTo(models.Project, { foreignKey: 'project_id' })
+    Thread.belongsTo(models.Project, { foreignKey: 'projectId' })
   };
   return Thread;
 };

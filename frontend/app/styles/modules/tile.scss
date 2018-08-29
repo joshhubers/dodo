@@ -1,8 +1,15 @@
-.info-tile {
+.tile {
   display: inline-block;
   border: 1px solid black;
   padding: 5px;
   margin: 5px;
   min-width: 250px;
   min-height: 250px;
+
+  &--inline {
+    display: block;
+    //min-width: none;
+    min-height: auto;
+    min-width: auto;
+  }
 }

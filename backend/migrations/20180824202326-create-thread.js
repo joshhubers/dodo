@@ -11,7 +11,7 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      project_id: {
+      projectId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

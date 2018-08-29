@@ -10,6 +10,7 @@ export default Route.extend(RouteQueryManager, {
           id
           title
           description
+          status
         }
       }
     `;

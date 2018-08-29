@@ -31,13 +31,6 @@ export default Controller.extend({
           description: project.description,
           status: project.status,
         }
-      }).then(response => {
-        const updatedProject = {
-          id: response.updateProject.id,
-          title: response.updateProject.title,
-          description: response.updateProject.description,
-          status: response.updateProject.status
-        }
       });
     },
 
@@ -83,7 +76,7 @@ export default Controller.extend({
           description: project.description,
           status: project.status,
         }
-      }, "project").then(response => {
+      }).then(response => {
         const newProject = {
           id: response.addProject.id,
           title: response.addProject.title,

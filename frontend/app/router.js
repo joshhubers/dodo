@@ -12,7 +12,7 @@ Router.map(function() {
   });
 
   this.route('thread', function() {
-    this.route('show');
+    this.route('show', { path: 'show/:id' });
   });
 });
 

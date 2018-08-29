@@ -6,9 +6,13 @@ export default Route.extend(RouteQueryManager, {
   model(params) {
     const allQuery = gql`
       query threadsForProject($id: Int!) {
-        fetchThreads(id: $id) {
+        fetchProject(id: $id) {
           id
           title
+          threads {
+            id
+            title
+          }
         }
       }
     `;

@@ -1,7 +1,19 @@
 <div class="spaced">
-  <h2>Threads</h2>
+  <h2>Threads - {{projectTitle}}</h2>
+  <button {{action 'showModal'}}>New Thread</button>
 </div>
 
 {{#each threads as |thread|}}
-  <div>{{thread.title}}</div>
+  {{thread-tile
+    deleteThread=(action 'deleteThread')
+    editThread=(action 'editThread')
+    thread=thread}}
 {{/each}}
+
+{{#if isShowingModal}}
+  {{thread-edit-modal
+    onClose=(action 'onClose')
+    createThread=(action 'createThread')
+    updateThread=(action 'updateThread')
+    thread=selectedThread}}
+{{/if}}

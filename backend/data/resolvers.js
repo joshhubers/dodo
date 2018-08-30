@@ -2,7 +2,7 @@
 
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { User, Project, Thread } = require('../models');
+const { User, Project, Thread, Post } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -29,8 +29,8 @@ const resolvers = {
             return await Project.find({ where: { id }, include: [{ model: Thread, as:'threads' }]});
         },
 
-        async fetchThreads(_, { id }) {
-          return await Thread.findAll({ where: { projectId: id }});
+        async fetchThread(_, { id }) {
+          return await Thread.find({ where: { id }, include: [{ model: Post, as:'posts', include: [{ model: User, as:'user' }] }]});
         },
     },
 
@@ -176,17 +176,66 @@ const resolvers = {
             return thread;
         },
 
-        // Delete a specified post
+        // Delete a specified thread
         async deleteThread(_, { id }, { authUser }) {
             // Make sure user is logged in
             //if (!authUser) {
                 //throw new Error('You must log in to continue!')
             //}
 
-            // fetch the post by it ID
+            // fetch the thread by it ID
             const thread = await Thread.findById(id);
 
             return await thread.destroy();
+        },
+
+        // Add a new thread
+        async addPost(_, { content, userId, threadId }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            //const user = await User.findOne({ where: { id: authUser.id } });
+
+          const post = await Post.create({
+            content,
+            userId,
+            threadId
+          });
+
+          return await Post.find({where: { id: post.id }, include: [{ model: User, as: 'user' }]});
+        },
+
+        // Update a particular thread
+        async updatePost(_, { id, content }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            // fetch the post by it ID
+            const post = await Post.findById(id);
+
+            // Update the post
+            await post.update({
+                content,
+            });
+
+            return post;
+        },
+
+        // Delete a specified post
+        async deletePost(_, { id }, { authUser }) {
+            // Make sure user is logged in
+            //if (!authUser) {
+                //throw new Error('You must log in to continue!')
+            //}
+
+            // fetch the post by it ID
+            const post = await Post.findById(id);
+
+            return await post.destroy();
         },
     },
 

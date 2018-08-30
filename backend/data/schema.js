@@ -26,8 +26,16 @@ const typeDefs = `
     type Thread {
         id: Int!
         title: String!
-        projectId: Int!
         project: Project!
+        posts: [Post]
+        createdAt: DateTime! # will be generated
+        updatedAt: DateTime! # will be generated
+    }
+    type Post {
+        id: Int!
+        content: String!
+        user: User!
+        thread: Thread!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
@@ -36,7 +44,7 @@ const typeDefs = `
         fetchUser(id: Int!): User
         allProjects: [Project]
         fetchProject(id: Int!): Project
-        fetchThreads(id: Int!): [Thread]
+        fetchThread(id: Int!): Thread
     }
     type Mutation {
         login (
@@ -77,6 +85,16 @@ const typeDefs = `
             title: String!,
         ): Thread
         deleteThread (id: Int!): Boolean
+        addPost (
+            content: String!,
+            threadId: Int!,
+            userId: Int!,
+        ): Post
+        updatePost (
+            id: Int!,
+            content: String!,
+        ): Post
+        deletePost (id: Int!): Boolean
     }
 `;
 module.exports = makeExecutableSchema({ typeDefs, resolvers });

@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Thread.associate = function(models) {
     // associations can be defined here
-    Thread.belongsTo(models.Project, { foreignKey: 'projectId' })
+    Thread.belongsTo(models.Project, { foreignKey: 'projectId' });
+    Thread.hasMany(models.Post, { foreignKey: 'threadId', as: 'posts' });
   };
   return Thread;
 };

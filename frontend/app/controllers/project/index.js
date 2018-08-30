@@ -76,14 +76,7 @@ export default Controller.extend({
           description: project.description,
           status: project.status,
         }
-      }).then(response => {
-        const newProject = {
-          id: response.addProject.id,
-          title: response.addProject.title,
-          description: response.addProject.description,
-          status: response.addProject.status,
-        };
-
+      }, "addProject").then(newProject => {
         this.projects.pushObject(newProject);
       });
 

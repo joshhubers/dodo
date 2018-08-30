@@ -1,17 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Threads', {
+    return queryInterface.createTable('Posts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      projectId: {
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      threadId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -26,6 +30,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Threads');
+    return queryInterface.dropTable('Posts');
   }
 };

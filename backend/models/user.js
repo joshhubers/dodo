@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     User.associate = function(models) {
         // A user can have many post
         //User.hasMany(models.Project);
+      User.hasMany(models.Post, { foreignKey: 'userId' });
     };
     return User;
 };

@@ -8,11 +8,11 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('project', function() {
-    this.route('show', { path: 'show/:id' });
+    this.route('show', { path: ':id/show' });
   });
 
   this.route('thread', function() {
-    this.route('show', { path: 'show/:id' });
+    this.route('show', { path: ':id/show' });
   });
 });
 

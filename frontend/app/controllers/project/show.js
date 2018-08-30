@@ -55,12 +55,7 @@ export default Controller.extend({
           title: thread.title,
           projectId: this.projectId
         }
-      }).then(response => {
-        const newThread = {
-          id: response.addThread.id,
-          title: response.addThread.title,
-        };
-
+      }, 'addThread').then(newThread => {
         this.threads.pushObject(newThread);
       });
 

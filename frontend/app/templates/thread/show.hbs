@@ -1,1 +1,11 @@
-{{outlet}}
+{{#each thread.posts as |post|}}
+  <div>
+    {{post.user.firstName}}
+    {{post.content}}
+  </div>
+{{/each}}
+
+<div>
+  {{textarea value=postContent}}
+  <button {{action 'post'}}>Post</button>
+</div>

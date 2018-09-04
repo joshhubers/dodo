@@ -1,36 +1,39 @@
 'use strict';
+const bcrypt = require('bcrypt');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+  up: async (queryInterface, Sequelize) => {
+    //let genSalt = '';
+    //let pword = '';
+    //bcrypt.genSalt(10, function(err, salt) {
+      //genSalt = salt;
+      //console.log(genSalt);
+      //bcrypt.hash('abc123', salt, function(err, hash) {
+        //pword = hash;
+      //});
+    //});
+    
+    //const [pword, genSalt] = await new Promise((resolve) => {
+      //bcrypt.genSalt(10, function(err, salt) {
+        //bcrypt.hash('abc123', salt, function(err, hash) {
+          //resolve([hash, salt]);
+        //});
+      //});
+    //});
 
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
-
+    const pword = await bcrypt.hashSync('abc123', 10);
+    console.log(pword);
     return queryInterface.bulkInsert('Users', [{
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@doe.email.com',
-      password: 'foobar',
+      password: pword,
       createdAt: '1-1-2018',
       updatedAt: '1-1-2018',
     }], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
-    return queryInterface.bulkDelete('User', null, {});
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };

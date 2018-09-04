@@ -43,6 +43,7 @@ const resolvers = {
                 throw new Error('No user with that email');
             }
 
+          console.log(user.password);
             const valid = await bcrypt.compare(password, user.password);
 
             if (!valid) {
@@ -53,7 +54,8 @@ const resolvers = {
             return jwt.sign({
                 id: user.id,
                 email: user.email
-            }, process.env.JWT_SECRET, { expiresIn: '1y' });
+            }, 'mysupersecretsecret', { expiresIn: '1y' });
+
         },
 
         // Create new user

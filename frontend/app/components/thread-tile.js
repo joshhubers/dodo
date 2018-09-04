@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['tile', 'tile--inline'],
+  classNames: ['tile', 'tile__inline'],
   thread: null,
 
   actions: {

@@ -1,6 +1,6 @@
 .container {
   margin: auto;
-  width: 1000px;
+  width: 1200px;
 }
 
 .inline {
@@ -15,3 +15,56 @@
   display: flex;
   justify-content: space-between;
 }
+
+.flex {
+  display: flex;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.margin-bottom {
+  &--5 {
+    margin-bottom: 5px;
+  }
+}
+
+.grid-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.grid-3 {
+  width: 30%;
+}
+
+.grid-7 {
+  width: 70%;
+}
+
+//$grid-sizes : (
+//1, 2, 3, 4, 5,
+//6, 7, 8, 9, 10
+//) !default;
+
+//@each $size in $grid-sizes {
+  //.grid-#{$size} {
+    //width: calc(#{($size * 10%)} - 20px);
+    //margin: 0 10px;
+  //}
+//}
+
+//.grid-row {
+  //margin-left: -10px;
+  //margin-right: -10px;
+  //width: 100%;
+  //display: flex;
+  //flex-wrap: wrap;
+
+  //&, & * {
+    //box-sizing: border-box;
+  //}
+//}

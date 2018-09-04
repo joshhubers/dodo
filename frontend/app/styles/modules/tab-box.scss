@@ -1,0 +1,26 @@
+.tab-box {
+   border: 1px solid black;
+   height: 600px;
+   width: 300px;
+   float: right;
+
+   &__header {
+     display: flex;
+
+    &-item {
+      display: inline;
+      width: 100%;
+      text-align: center;
+      padding: 5px;
+
+      &--active {
+        border-bottom: 0px;
+      }
+
+      border-bottom: 1px solid;
+      &:not(:first-child) {
+        border-left: 1px solid black;
+      }
+    }
+   }
+}

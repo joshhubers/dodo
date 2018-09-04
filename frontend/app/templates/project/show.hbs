@@ -1,14 +1,21 @@
-<div class="spaced">
+<div class="spaced margin-bottom--5">
   <h2>Threads - {{projectTitle}}</h2>
   <button {{action 'showModal'}}>New Thread</button>
 </div>
 
-{{#each threads as |thread|}}
-  {{thread-tile
-    deleteThread=(action 'deleteThread')
-    editThread=(action 'editThread')
-    thread=thread}}
-{{/each}}
+<div class="grid-row">
+  <div class="grid-3">
+    {{tab-box}}
+  </div>
+  <div class="grid-7">
+    {{#each threads as |thread|}}
+      {{thread-tile
+        deleteThread=(action 'deleteThread')
+        editThread=(action 'editThread')
+        thread=thread}}
+    {{/each}}
+  </div>
+</div>
 
 {{#if isShowingModal}}
   {{thread-edit-modal

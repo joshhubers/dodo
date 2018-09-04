@@ -6,8 +6,21 @@
   min-width: 250px;
   min-height: 250px;
 
-  &--inline {
+  &__post {
+    width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  &__post-input {
+    width: 500px;
+    margin: auto;
+  }
+
+  &__inline {
     display: block;
+    margin: 0 0 5px 5px;
     //min-width: none;
     min-height: auto;
     min-width: auto;

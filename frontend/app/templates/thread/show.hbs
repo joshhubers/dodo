@@ -1,11 +1,19 @@
+<div class="spaced">
+  <h2>Thread - {{thread.title}}</h2>
+</div>
+
 {{#each thread.posts as |post|}}
-  <div>
-    {{post.user.firstName}}
-    {{post.content}}
-  </div>
+  {{post-tile
+    editPost=(action 'editPost')
+    deletePost=(action 'deletePost')
+    post=post}}
 {{/each}}
 
-<div>
-  {{textarea value=postContent}}
-  <button {{action 'post'}}>Post</button>
-</div>
+{{post-input
+  post=(action 'post')}}
+
+{{#if isEditingPost}}
+  {{post-edit-modal
+    onClose=(action 'onClose')
+    post=post}}
+{{/if}}

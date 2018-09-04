@@ -1,0 +1,10 @@
+{{#modal-dialog
+  containerClass="custom-modal"
+  onClose="onClose"
+  translucentOverlay=true}}
+
+{{post-input
+  postContent=post.content
+  post=(action 'post')}}
+
+{{/modal-dialog}}

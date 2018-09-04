@@ -1,0 +1,14 @@
+<div class='spaced'>
+  <div>
+    <button {{action 'deletePost'}}>X</button>
+    <button {{action 'editPost'}}>E</button>
+  </div>
+  <div>
+    {{post.user.firstName}}
+  </div>
+  <div>
+    {{post.updatedAt}}
+  </div>
+</div>
+<hr>
+{{post.content}}

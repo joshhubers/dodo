@@ -6,16 +6,18 @@ import gql from "graphql-tag";
 export default Controller.extend({
   thread: alias('model.fetchThread'),
   apollo: service(),
-  postContent: '',
+  isEditingPost: false,
+  editingPost: null,
 
   actions: {
-    post() {
+    post(postContent) {
       const createPostQuery = gql`
       mutation AddPost($content: String!, $userId: Int!, $threadId: Int!) 
       {
         addPost(content: $content, userId: $userId, threadId: $threadId) {
           id
           content
+          updatedAt
           user {
             firstName
             lastName
@@ -24,18 +26,48 @@ export default Controller.extend({
       }
       `;
 
-
       this.apollo.mutate({
         mutation: createPostQuery,
         variables: {
-          content: this.postContent,
+          content: postContent,
           userId: 1,
           threadId: this.thread.id,
         }
       }, "addPost").then(newPost => {
         this.thread.posts.pushObject(newPost);
-        this.set('postContent', '');
       });
+    },
+
+    deletePost(post) {
+      const deletePostQuery = gql`
+      mutation DeletePost($id: Int!) 
+      {
+        deletePost(id: $id)
+      }
+      `;
+
+      this.apollo.mutate({
+        mutation: deletePostQuery,
+        variables: { id: post.id }
+      }).then(() => {
+        this.thread.posts.removeObject(post);
+      });
+      
+    },
+
+    editPost(post) {
+      this.set('isEditingPost', true);
+      this.set('editingPost', post);
+
+    },
+
+    updatePost(postContent) {
+      this.set('editingPost.content', postContent);
+      this.set('isEditingPost', false);
+    },
+
+    onClose(post) {
+      this.set('isEditingPost', false);
     },
   }
 });

@@ -12,6 +12,7 @@ export default Route.extend(RouteQueryManager, {
           posts {
             id
             content
+            updatedAt
             user {
               firstName
               lastName

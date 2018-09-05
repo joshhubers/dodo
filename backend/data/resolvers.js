@@ -43,7 +43,6 @@ const resolvers = {
                 throw new Error('No user with that email');
             }
 
-          console.log(user.password);
             const valid = await bcrypt.compare(password, user.password);
 
             if (!valid) {
@@ -54,7 +53,7 @@ const resolvers = {
             return jwt.sign({
                 id: user.id,
                 email: user.email
-            }, 'mysupersecretsecret', { expiresIn: '1y' });
+            }, 'supersecrettokensecret', { expiresIn: '1y' });
 
         },
 
@@ -92,15 +91,14 @@ const resolvers = {
         // Add a new post
         async addProject(_, { title, description, status }, { authUser }) {
             // Make sure user is logged in
-            //if (!authUser) {
-                //throw new Error('You must log in to continue!')
-            //}
+            if (!authUser) {
+                throw new Error('You must log in to continue!')
+            }
 
-            //const user = await User.findOne({ where: { id: authUser.id } });
+            const user = await User.findById(authUser.id);
 
             const project = await Project.create({
-                //userId: user.id,
-                userId: 1,
+                userId: user.id,
                 title,
                 description,
                 status

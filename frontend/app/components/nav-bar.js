@@ -21,7 +21,6 @@ export default Component.extend({
           password: "abc123",
         }
       }, "login").then(login => {
-        debugger;
       });
     },
   }

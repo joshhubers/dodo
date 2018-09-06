@@ -4,5 +4,9 @@
 </ul>
 
 <ul class="inline">
-  <button {{action 'login'}}>Login</button>
+  {{#if auth.isLoggedIn}}
+    <button {{action 'logout'}}>Logout</button>
+  {{else}}
+    <button {{action 'login'}}>Login</button>
+  {{/if}}
 </ul>

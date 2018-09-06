@@ -4,24 +4,14 @@ import gql from "graphql-tag";
 
 export default Component.extend({
   apollo: service(),
+  auth: service(),
 
   actions: {
     login() {
-      const loginQuery = gql`
-      mutation Login($email: String!, $password: String!) 
-      {
-        login(email: $email, password: $password)
-      }
-      `;
-
-      this.apollo.mutate({
-        mutation: loginQuery,
-        variables: {
-          email: "john@doe.email.com",
-          password: "abc123",
-        }
-      }, "login").then(login => {
-      });
+      this.auth.login('john@doe.email.com', 'abc123');
+    },
+    logout() {
+      this.auth.logout();
     },
   }
 });

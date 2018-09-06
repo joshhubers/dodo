@@ -8,26 +8,20 @@ import { computed } from '@ember/object';
 export default ApolloService.extend({
   auth: service(),
 
-  link: computed(function() {
-    let httpLink = this._super(...arguments);
+    link: computed(function() {
+      let httpLink = this._super(...arguments);
 
-    let authLink = setContext((request, context) => {
-      return this.authorize(request, context);
-    });
-    return authLink.concat(httpLink);
-  }),
+      let authMiddleware = setContext(async request => {
+        const token = this.auth.getAuthToken();
+        if(token) {
+          return {
+            headers: {
+              authorization: `Bearer ${token}`
+            }
+          };
+        }
+      });
 
-
-  authorize(req, next) {
-    //if(!req.options) {
-      //return;
-    //}
-
-    if (!req.options.headers) {
-      req.options.headers = {};
-    }
-    const token = this.get('auth').getAuthToken();
-    req.options.headers.authorization = token ? `Bearer ${token}` : null;
-    next();
-  }
+      return authMiddleware.concat(httpLink);
+    }),
 });

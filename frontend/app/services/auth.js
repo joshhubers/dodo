@@ -20,13 +20,17 @@ export default Ember.Service.extend({
 
   getUserId() {
     const userId = localStorage.getItem(USER_ID);
-    this.setUserId(userId);
+    if(userId) {
+      this.setUserId(userId);
+    }
     return userId;
   },
 
   getAuthToken() {
     const token = localStorage.getItem(AUTH_TOKEN);
-    this.setAuthToken(token);
+    if(token) {
+      this.setAuthToken(token);
+    }
     return token;
   },
 

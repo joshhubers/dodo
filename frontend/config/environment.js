@@ -7,7 +7,7 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'auto',
     apollo: {
-      apiURL: 'http://localhost:3000/graphql',
+      apiURL: 'http://localhost:3003/graphql',
       // Optionally, set the credentials property of the Fetch Request interface
       //     // to control when a cookie is sent:
       //         // requestCredentials: 'same-origin', // other choices: 'include', 'omit'

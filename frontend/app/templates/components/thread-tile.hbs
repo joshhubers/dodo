@@ -1,6 +1,6 @@
 <button {{action 'deleteThread'}}>X</button>
 <button {{action 'editThread'}}>E</button>
 
-{{#link-to 'thread.show' thread.id}}
+{{#link-to 'auth.thread.show' thread.id}}
   <h3 class="text-center">{{thread.title}}</h3>
 {{/link-to}}

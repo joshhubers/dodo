@@ -1,12 +1,10 @@
 <h1 class="inline">Dodo</h1>
 <ul class="inline">
-  <li class="inline">{{#link-to "project.index"}}Projects{{/link-to}}</li>
+  <li class="inline">{{#link-to "auth.project.index"}}Projects{{/link-to}}</li>
 </ul>
 
-<ul class="inline">
-  {{#if auth.isLoggedIn}}
-    <button {{action 'logout'}}>Logout</button>
-  {{else}}
-    <button {{action 'login'}}>Login</button>
-  {{/if}}
-</ul>
+{{#if auth.isLoggedIn}}
+  <ul class="inline">
+      <button {{action 'logout'}}>Logout</button>
+  </ul>
+{{/if}}

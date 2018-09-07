@@ -39,6 +39,10 @@ const typeDefs = `
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
     }
+    type JwtLogin {
+      token: String!
+      user: User!
+    }
     type Query {
         allUsers: [User]
         fetchUser(id: Int!): User
@@ -50,7 +54,7 @@ const typeDefs = `
         login (
             email: String!,
             password: String!
-        ): String
+        ): JwtLogin
         createUser (
             firstName: String!,
             lastName: String,

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Project.associate = function(models) {
     // A Project belongs to a user
-    //Project.belongsTo(models.User);
+    Project.belongsTo(models.User, { foreignKey: 'userId' });
     Project.hasMany(models.Thread, { foreignKey: 'projectId', as: 'threads' });
   };
 

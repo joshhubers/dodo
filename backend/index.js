@@ -7,7 +7,7 @@ const { graphqlExpress } = require('apollo-server-express');
 import { ApolloServer } from 'apollo-server-express';
 const schema = require('./data/schema');
 const jwt = require('express-jwt');
-const PORT = 3000;
+const PORT = 3003;
 
 // Create our express app
 const app = express();

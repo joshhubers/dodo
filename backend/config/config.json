@@ -3,7 +3,7 @@
     "username": "postgres_user",
     "password": "postgres_pass",
     "database": "dodo_db",
-    "host": "127.0.0.1",
+    "host": "dodo-db",
     "dialect": "postgres"
   },
   "test": {

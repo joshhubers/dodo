@@ -6,12 +6,13 @@ services:
       POSTGRES_USER: 'postgres_user'
       POSTGRES_PASSWORD: 'postgres_pass'
       POSTGRES_DB: 'dodo_db'
+  dodo-frontend:
+    build: frontend
     ports:
-      - '5432:5432'
-  #dodo-frontend:
-    #image: 'danlynn/ember-cli:3.3.0'
-    #volumes: 
-    #ports:
-      #- '4202:4200'
-      #- '7020:7020'
-      #- '5779:5779'
+      - '4202:4200'
+      - '7020:7020'
+      - '5779:5779'
+  dodo-backend:
+    build: backend
+    ports:
+      - '3003:3003'

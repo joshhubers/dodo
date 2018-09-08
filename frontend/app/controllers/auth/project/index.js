@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import gql from "graphql-tag";
-import { alias } from '@ember/object/computed';
+import { alias, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
@@ -8,6 +8,8 @@ export default Controller.extend({
   selectedProject: null,
   projects: alias('model.allProjects'),
   apollo: service(),
+  projectSort: Object.freeze(['status', 'title']),
+  sortedProjects: sort('projects', 'projectSort'),
 
   actions: {
     updateProject(project) {

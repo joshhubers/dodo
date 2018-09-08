@@ -12,6 +12,13 @@
 
 Clone the repository. Docker up build to build and run the project. Source the environment file to use handy commands. Execute Sequelize commands to create and seed database.
 
+Visit
+    localhost:4202
+
+Login with demo
+    Email: john@doe.email.com
+    Password: abc123
+
 ## Intent
 
 I am building this software as a learning experience to expand my knowledge of node js, graphql, and web authentication (all things I currently have little experience in). As such there will be ugly code, terrible patterns, and so far no tests.

@@ -1,7 +1,21 @@
-<div class="login-box">
-  Email
-  {{input value=email}}
-  Password
-  {{input type="password" value=password enter='login'}}
-  <button {{action 'login'}}>Login</button>
+<div class="tile tile__login">
+  <div class="tile__item">
+    Email
+  </div>
+
+  <div class="tile__item">
+    {{input value=email}}
+  </div>
+
+  <div class="tile__item">
+    Password
+  </div>
+
+  <div class="tile__item">
+    {{input type="password" value=password enter='login'}}
+  </div>
+
+  <div class="tile__item">
+    <button class="full-width center margin-top--10" {{action 'login'}}>Login</button>
+  </div>
 </div>

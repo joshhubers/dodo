@@ -1,6 +1,11 @@
 .container {
   margin: auto;
-  width: 1200px;
+  max-width: 1200px;
+  min-width: 300px;
+}
+
+.center {
+  margin: auto;
 }
 
 .inline {
@@ -27,6 +32,12 @@
 .margin-bottom {
   &--5 {
     margin-bottom: 5px;
+  }
+}
+
+.margin-top {
+  &--10 {
+    margin-top: 10px;
   }
 }
 

@@ -3,12 +3,17 @@
   <button {{action 'showModal'}}>New Project</button>
 </div>
 
-{{#each projects as |project|}}
+{{#if sortedProjects}}
+{{#each sortedProjects as |project|}}
   {{project-tile
     deleteProject=(action 'deleteProject')
     editProject=(action 'editProject')
     project=project}}
 {{/each}}
+
+{{else}}
+  You have no projects currently!
+{{/if}}
 
 {{#if isShowingModal}}
   {{project-edit-modal

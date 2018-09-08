@@ -1,4 +1,4 @@
-# dodo - The project management app to make all others extinct
+# dodo
 
 ## Setup
 

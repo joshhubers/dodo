@@ -22,3 +22,11 @@ Login with demo
 ## Intent
 
 I am building this software as a learning experience to expand my knowledge of node js, graphql, and web authentication (all things I currently have little experience in). As such there will be ugly code, terrible patterns, and so far no tests.
+
+## Path To MVP
+ - User roles and permissions (In anticipation of invite system)
+ - Organizations
+ - User project invite system
+ - Photo/File uploads
+ - User project notes
+ - User creation/invites to application

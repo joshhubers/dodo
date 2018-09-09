@@ -20,12 +20,19 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        organizationId: {
+            type: DataTypes.INTEGER,
+            allowNull: true
+        },
     });
     User.associate = function(models) {
         // A user can have many post
-        //User.hasMany(models.Project);
+      User.hasMany(models.Project, { foreignKey: 'userId', as: 'ownedProjects' });
       User.hasMany(models.Post, { foreignKey: 'userId' });
+      User.belongsTo(models.Organization, { foreignKey: 'organizationId', as: 'organization' });
+      //See belongs-to-many for projects http://docs.sequelizejs.com/manual/tutorial/associations.html
+      User.belongsToMany(models.Project, { through: 'ProjectUser', foreignKey: 'projectId', as: 'memberProjects' });
     };
     return User;
 };

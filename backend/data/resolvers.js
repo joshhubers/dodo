@@ -2,7 +2,7 @@
 
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { User, Project, Thread, Post } = require('../models');
+const { User, Project, Thread, Post, ProjectInvite } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -10,12 +10,22 @@ const jwt = require('jsonwebtoken');
 const resolvers = {
   Query: {
     // Fetch all users
-    async allUsers() {
-      return await User.all();
+    async allUsers(foo, bar, { authUser }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+      return await User.findAll({ where: { organizationId: authUser.organizationId } });
     },
 
     // Get a user by it ID
     async fetchUser(_, { id }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
       return await User.findById(id);
     },
 
@@ -29,10 +39,73 @@ const resolvers = {
       return await Project.findAll({where: { userId: authUser.id }});
     },
 
-    // Get a post by it ID
-    async fetchProject(_, { id }) {
+    // Fetch all project invites to a user
+    async toInvites(foo , bar, { authUser }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
 
-      return await Project.find({ where: { id }, include: [{ model: Thread, as:'threads' }]});
+      return await ProjectInvite.findAll(
+        { 
+          where: { toUserId: authUser.id },
+          include: [
+            { model: Project, as: 'project' },
+            { model: User, as:'to' },
+            { model: User, as:'from' },
+          ]
+        }
+      );
+    },
+
+    // Fetch all project invites from a user
+    async fromInvites(foo, { projectId }, { authUser }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+      if(projectId) {
+        return await ProjectInvite.findAll(
+          { 
+            where: { fromUserId: authUser.id, projectId },
+            include: [
+              { model: User, as:'to' },
+              { model: User, as:'from' },
+            ]
+          }
+        );
+      }
+
+      return await ProjectInvite.findAll(
+        { 
+          where: { fromUserId: authUser.id },
+          include: [
+            { model: User, as:'to' },
+            { model: User, as:'from' },
+          ]
+        }
+      );
+    },
+
+    // Get a post by it ID
+    async fetchProject(_, { id }, { authUser }) {
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+      //TODO: Add auth to check the authUser belongs to or owns the project
+
+      return await Project.find(
+        { 
+          where: { id }, 
+          include: [
+            { model: Thread, as:'threads' }, 
+            { model: User, as:'owner' },
+            { model: User, as:'members' }
+          ]
+        }
+      );
     },
 
     async fetchThread(_, { id }) {
@@ -57,7 +130,8 @@ const resolvers = {
 
       const token = jwt.sign({
         id: user.id,
-        email: user.email
+        email: user.email,
+        organizationId: user.organizationId,
       }, 'supersecrettokensecret', { expiresIn: '1y' });
 
       return { token, user, }
@@ -92,6 +166,26 @@ const resolvers = {
       });
 
       return user;
+    },
+
+    // Add a new post
+    async addProjectInvite(_, { toUserId, projectId }, { authUser }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+      const user = await User.findById(authUser.id);
+
+      //TODO: Verify an invite doesn't already exist
+
+      const projectInvite = await ProjectInvite.create({
+        fromUserId: user.id,
+        toUserId: toUserId,
+        projectId: projectId
+      });
+
+      return projectInvite;
     },
 
     // Add a new post

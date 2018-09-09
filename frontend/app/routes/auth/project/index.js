@@ -15,6 +15,6 @@ export default Route.extend(RouteQueryManager, {
       }
     `;
 
-    return this.get('apollo').watchQuery({ query: allQuery });
+    return this.apollo.watchQuery({ query: allQuery });
   }
 });

@@ -25,8 +25,11 @@ I am building this software as a learning experience to expand my knowledge of n
 
 ## Path To MVP
  - User roles and permissions (In anticipation of invite system)
- - Organizations
  - User project invite system
  - Photo/File uploads
  - User project notes
  - User creation/invites to application
+
+## Bugs I don't want to fix right now, but should return to
+ - Inviting a user doesn't mark the button as 'sent'
+ - Login/logout redirect is broken

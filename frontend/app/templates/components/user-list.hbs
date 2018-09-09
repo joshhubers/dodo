@@ -1,0 +1,10 @@
+{{#each users as |user|}}
+  <div>
+    {{user.firstName}} {{user.lastName}}
+    {{#if user.invited}}
+      <button disabled=true>Invited</button>
+    {{else}}
+      <button {{action 'invite' user}}>Invite</button>
+    {{/if}}
+  </div>
+{{/each}}

@@ -10,15 +10,27 @@ const typeDefs = `
         lastName: String
         email: String!
         projects: [Project]
+        organization: Organization!
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
+    }
+    type Organization {
+        id: Int!
+        name: String!
+    }
+    type ProjectInvite {
+        id: Int!
+        from: User!
+        to: User!
+        project: Project!
     }
     type Project {
         id: Int!
         title: String!
         description: String!
         status: String!
-        user: User!
+        owner: User!
+        members: [User]
         threads: [Thread]
         createdAt: DateTime! # will be generated
         updatedAt: DateTime! # will be generated
@@ -44,9 +56,11 @@ const typeDefs = `
       user: User!
     }
     type Query {
-        allUsers: [User]
+        allUsers(excludeIds: [Int]): [User]
         fetchUser(id: Int!): User
         allProjects: [Project]
+        fromInvites(projectId: Int): [ProjectInvite]
+        toInvites: [ProjectInvite]
         fetchProject(id: Int!): Project
         fetchThread(id: Int!): Thread
     }
@@ -80,6 +94,10 @@ const typeDefs = `
             status: String!,
         ): Project
         deleteProject (id: Int!): Boolean
+        addProjectInvite(
+          toUserId: Int!,
+          projectId: Int!
+        ): ProjectInvite
         addThread (
             title: String!,
             projectId: Int!,

@@ -1,2 +1,3 @@
 alias do_bx='docker-compose exec dodo-backend'
 alias do_bx_seq='do_bx node_modules/.bin/sequelize'
+alias do_fx='docker-compose exec dodo-frontend'

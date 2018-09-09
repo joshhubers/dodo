@@ -4,14 +4,22 @@ import { inject as service } from '@ember/service';
 import gql from "graphql-tag";
 
 export default Controller.extend({
-  threads: alias('model.fetchProject.threads'),
+  project: alias('model.fetchProject'),
+  threads: alias('project.threads'),
   projectTitle: alias('model.fetchProject.title'),
   projectId: alias('model.fetchProject.id'),
   isShowingModal: false,
+  isShowingInviteModal: false,
   selectedThread: null,
   apollo: service(),
 
   actions: {
+    inviteUsers() {
+      this.set('isShowingInviteModal', true);
+    },
+    onCloseInvite() {
+      this.set('isShowingInviteModal', false);
+    },
     editThread(thread) {
       this.set('selectedThread', thread);
       this.set('isShowingModal', true);

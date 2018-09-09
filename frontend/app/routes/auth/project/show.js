@@ -13,6 +13,14 @@ export default Route.extend(RouteQueryManager, {
             id
             title
           }
+          owner {
+            id
+            firstName
+          }
+          members {
+            id
+            firstName
+          }
         }
       }
     `;

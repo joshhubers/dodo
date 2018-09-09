@@ -1,6 +1,18 @@
 <div class="spaced margin-bottom--5">
   <h2>Threads - {{projectTitle}}</h2>
-  <button {{action 'showModal'}}>New Thread</button>
+  <div>
+    <button {{action 'inviteUsers'}}>Invite User</button>
+    <button {{action 'showModal'}}>New Thread</button>
+  </div>
+</div>
+
+<div class='project-users'>
+  Owner >> {{project.owner.firstName}}
+  <br>
+  Members >>
+  {{#each project.members as |member|}}
+    {{member.firstName}}
+  {{/each}}
 </div>
 
 <div class="grid-row">
@@ -16,6 +28,17 @@
     {{/each}}
   </div>
 </div>
+
+{{#if isShowingInviteModal}}
+  {{#modal-dialog
+    containerClass="custom-modal"
+    onClose="onCloseInvite"
+    translucentOverlay=true}}
+  {{user-list
+    projectId=project.id}}
+{{/modal-dialog}}
+
+{{/if}}
 
 {{#if isShowingModal}}
   {{thread-edit-modal

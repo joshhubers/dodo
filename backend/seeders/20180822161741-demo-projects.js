@@ -1,33 +1,31 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+  up: async (queryInterface, Sequelize) => {
 
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+    const users = await queryInterface.sequelize.query(
+      `SELECT id from "Users";`
+    );
+
+    const userRows = users[0];
 
     let projects = [];
-    var i;
-    for(i = 0; i < 7; i++) {
-      const p = {
-        userId: 1,
-        title: `Test Project ${i}`,
-        description: `This is the description of project ${i}`,
-        status: 'active',
-        createdAt: '2018-1-1',
-        updatedAt: '2018-1-1',
-      };
 
-      projects.push(p);
-    }
+    userRows.forEach(ur => {
+      var i;
+      for(i = 0; i < 3; i++) {
+        const p = {
+          userId: ur.id,
+          title: `Test Project ${projects.length}`,
+          description: `This is the description of project ${projects.length}`,
+          status: 'active',
+          createdAt: '2018-1-1',
+          updatedAt: '2018-1-1',
+        };
 
+        projects.push(p);
+      }
+    });
     return queryInterface.bulkInsert('Projects', projects, {});
   },
 

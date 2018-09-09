@@ -7,4 +7,16 @@
   <ul class="inline">
       <button {{action 'logout'}}>Logout</button>
   </ul>
+  <ul class="inline">
+      <button {{action 'openInvites'}}>Invites</button>
+  </ul>
+{{/if}}
+
+{{#if isShowingInvites}}
+  {{#modal-dialog
+    containerClass="custom-modal"
+    onClose="closeInvites"
+    translucentOverlay=true}}
+    {{invite-list}}
+  {{/modal-dialog}}
 {{/if}}

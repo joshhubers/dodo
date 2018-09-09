@@ -10,21 +10,12 @@ const AUTH_TOKEN = 'auth-token';
 export default Ember.Service.extend({
   init() {
     this._super(...arguments);
-    this.getUserId();
     this.getAuthToken();
   },
 
   apollo: service(),
 
   authToken: null,
-
-  getUserId() {
-    const userId = localStorage.getItem(USER_ID);
-    if(userId) {
-      this.setUserId(userId);
-    }
-    return userId;
-  },
 
   getAuthToken() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -35,7 +26,7 @@ export default Ember.Service.extend({
   },
 
   isLoggedIn: Ember.computed('userId', function() {
-    return this.userId;
+    return this.authToken;
   }),
 
   login(email, password) {
@@ -47,9 +38,6 @@ export default Ember.Service.extend({
       {
         login(email: $email, password: $password) {
           token,
-          user {
-            id
-          }
         }
       }
       `;
@@ -63,7 +51,7 @@ export default Ember.Service.extend({
         }
       }, "login").then(result => {
 
-        this.saveUserData(result.user.id, result.token);
+        this.setAuthToken(result.token);
         resolve();
       })
         .catch(error => reject(error));
@@ -72,15 +60,9 @@ export default Ember.Service.extend({
 
   logout() {
     return new RSVP.Promise(resolve => {
-      this.removeUserId();
       this.removeAuthToken();
       resolve();
     });
-  },
-
-  removeUserId() {
-    localStorage.removeItem(USER_ID);
-    this.set('userId', null);
   },
 
   removeAuthToken() {
@@ -88,20 +70,8 @@ export default Ember.Service.extend({
     this.set('authToken', null);
   },
 
-  saveUserData(id, token) {
-    this.setUserId(id);
-    this.setAuthToken(token);
-  },
-
-  setUserId(id) {
-    localStorage.setItem(USER_ID, id);
-    this.set('userId', id);
-  },
-
   setAuthToken(token) {
     localStorage.setItem(AUTH_TOKEN, token);
     this.set('authToken', token);
   },
-
-  userId: null
 });

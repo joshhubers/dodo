@@ -62,6 +62,7 @@ const typeDefs = `
         allProjects: [Project]
         fromInvites(projectId: Int): [ProjectInvite]
         toInvites: [ProjectInvite]
+        invitableUsers(projectId: Int!): [User]
         fetchProject(id: Int!): Project
         fetchThread(id: Int!): Thread
     }

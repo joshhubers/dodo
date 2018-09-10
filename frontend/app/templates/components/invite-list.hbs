@@ -1,17 +1,21 @@
-{{#if invites}}
-{{#each invites as |invite|}}
-  <div class='tile'>
-    <div class='tile__item'>
-      Invite from - {{invite.from.firstName}} {{intivite.from.lastName}}
-    </div>
-    <div class='tile__item'>
-      For Project - {{invite.project.title}}
-    </div>
-    <div class='tile__item'>
-      <button {{action 'acceptInvite' invite.id}}>Accept Invite</button>
-    </div>
-  </div>
-{{/each}}
+{{#if isLoading}}
+  <p>Loading</p>
 {{else}}
-  You have no invites!
+  {{#if invites}}
+    {{#each invites as |invite|}}
+      <div class='tile'>
+        <div class='tile__item'>
+          Invite from - {{invite.from.firstName}} {{intivite.from.lastName}}
+        </div>
+        <div class='tile__item'>
+          For Project - {{invite.project.title}}
+        </div>
+        <div class='tile__item'>
+          <button {{action 'acceptInvite' invite.id}}>Accept Invite</button>
+        </div>
+      </div>
+    {{/each}}
+  {{else}}
+    You have no invites!
+  {{/if}}
 {{/if}}

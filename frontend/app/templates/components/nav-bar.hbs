@@ -5,11 +5,14 @@
 
 {{#if auth.isLoggedIn}}
   <ul class="inline">
-      <button {{action 'logout'}}>Logout</button>
-  </ul>
-  <ul class="inline">
       <button {{action 'openInvites'}}>Invites</button>
   </ul>
+{{/if}}
+
+{{#if isLoggedIn}}
+  <div class="right">
+    <p>{{userEmail}} (<a {{action 'logout'}} href="#">Logout</a>)</p>
+  </div>
 {{/if}}
 
 {{#if isShowingInvites}}

@@ -1,15 +1,22 @@
 import Component from '@ember/component';
 import { ComponentQueryManager } from "ember-apollo-client";
 import gql from "graphql-tag";
+import { computed } from '@ember/object';
 
 export default Component.extend(ComponentQueryManager, {
-  users: null,
+  users: Object.freeze([]),
   projectId: null,
 
   init() {
     this._super(...arguments);
     this.loadUsersAndInvites();
   },
+
+  userList: computed('users.@each.invited', function() {
+    return this.users.map(u => {
+      return { id: u.id, invited: u.invited, firstName: u.firstName, lastName: u.lastName }
+    });
+  }),
 
   loadUsersAndInvites() {
     const usersQuery = gql`
@@ -56,8 +63,16 @@ export default Component.extend(ComponentQueryManager, {
       this.apollo.mutate({
         mutation: inviteQuery,
         variables: { toUserId: user.id, projectId: this.projectId }}).then(() => {
-          debugger;
-          user.invited = true;
+
+          const newUserList = this.users.map(u => {
+            if(u.id === user.id) {
+              u.invited = true;
+            }
+            return u;
+          });
+
+          this.set('users', newUserList);
+
         });
     }
   }

@@ -73,6 +73,16 @@ const resolvers = {
       );
     },
 
+    async invitableUsers(foo, { projectId }, { authUser }) {
+      // Make sure user is logged in
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+
+
+    },
+
     // Fetch all project invites from a user
     async fromInvites(foo, { projectId }, { authUser }) {
       // Make sure user is logged in

@@ -3,14 +3,18 @@ import { ComponentQueryManager } from "ember-apollo-client";
 import gql from "graphql-tag";
 
 export default Component.extend(ComponentQueryManager, {
+
+  // Local Variables
   invites: null,
+  isLoading: true,
 
   init() {
     this._super(...arguments);
     this.loadInvites();
   },
 
-  loadInvites() {
+  async loadInvites() {
+    this.set('isLoading', true);
     const inviteQuery = gql`
       query {
         toInvites {
@@ -26,9 +30,13 @@ export default Component.extend(ComponentQueryManager, {
       }
     `;
 
-    this.apollo.query({ query: inviteQuery }, 'toInvites').then(invites => {
-      this.set('invites', invites);
+    const invites = await this.apollo.query({ query: inviteQuery }, 'toInvites');
+
+    this.setProperties({
+      invites,
+      isLoading: false
     });
+
   },
 
   actions: {

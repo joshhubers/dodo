@@ -2,8 +2,10 @@ import Ember from 'ember';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
 import gql from "graphql-tag";
+import { next } from '@ember/runloop';
+import { computed } from '@ember/object';
+import { notEmpty } from '@ember/object/computed';
 
-const USER_ID = 'user-id';
 const AUTH_TOKEN = 'auth-token';
 
 // See: https://github.com/howtographql/ember-apollo/blob/master/app/services/auth.js
@@ -14,8 +16,12 @@ export default Ember.Service.extend({
   },
 
   apollo: service(),
-
   authToken: null,
+
+  isLoggedIn: notEmpty('authToken'),
+  authJson: computed('authToken', function() {
+    return this.getAuthTokenContents();
+  }),
 
   getAuthToken() {
     const token = localStorage.getItem(AUTH_TOKEN);
@@ -27,13 +33,13 @@ export default Ember.Service.extend({
 
   getAuthTokenContents() {
     const token = this.getAuthToken();
+    if(!token) { return {}; }
     const parts = token.split('.');
-    return atob(parts[1]);
-  }
 
-  isLoggedIn: Ember.computed('userId', function() {
-    return this.authToken;
-  }),
+    const info = JSON.parse(atob(parts[1]));
+    return info;
+  },
+
 
   login(email, password) {
     return new RSVP.Promise((resolve, reject) => {
@@ -82,6 +88,7 @@ export default Ember.Service.extend({
   },
 
   getUserId() {
-    return this.getAuthTokenContents().userId;
+    const userId = this.getAuthTokenContents().id;
+    return userId;
   }
 });

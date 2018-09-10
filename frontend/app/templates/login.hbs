@@ -18,4 +18,19 @@
   <div class="tile__item">
     <button class="full-width center margin-top--10" {{action 'login'}}>Login</button>
   </div>
+
 </div>
+
+{{#if isLoading}}
+  <div class="tile__login">
+    <p>Loading</p>
+  </div>
+{{/if}}
+
+{{#if hasErrors}}
+  <div class="tile__login">
+    {{#each errors as |error|}}
+      <p>{{error.message}}</p>
+    {{/each}}
+  </div>
+{{/if}}

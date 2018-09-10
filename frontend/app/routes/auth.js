@@ -3,10 +3,11 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend({
   auth: service(),
+  router: service(),
 
   beforeModel() {
     if(!this.auth.isLoggedIn) {
-      this.transitionTo('login');
+      this.router.transitionTo('login');
     }
   }
 });

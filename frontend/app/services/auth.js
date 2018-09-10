@@ -25,6 +25,12 @@ export default Ember.Service.extend({
     return token;
   },
 
+  getAuthTokenContents() {
+    const token = this.getAuthToken();
+    const parts = token.split('.');
+    return atob(parts[1]);
+  }
+
   isLoggedIn: Ember.computed('userId', function() {
     return this.authToken;
   }),
@@ -74,4 +80,8 @@ export default Ember.Service.extend({
     localStorage.setItem(AUTH_TOKEN, token);
     this.set('authToken', token);
   },
+
+  getUserId() {
+    return this.getAuthTokenContents().userId;
+  }
 });

@@ -1,3 +1,4 @@
+{{#if invites}}
 {{#each invites as |invite|}}
   <div class='tile'>
     <div class='tile__item'>
@@ -11,3 +12,6 @@
     </div>
   </div>
 {{/each}}
+{{else}}
+  You have no invites!
+{{/if}}

@@ -1,4 +1,6 @@
-<button {{action 'deleteThread'}}>X</button>
+{{#if isOwner}}
+  <button {{action 'deleteThread'}}>X</button>
+{{/if}}
 <button {{action 'editThread'}}>E</button>
 
 {{#link-to 'auth.thread.show' thread.id}}

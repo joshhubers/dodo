@@ -1,7 +1,9 @@
 <div class="spaced margin-bottom--5">
   <h2>Threads - {{projectTitle}}</h2>
   <div>
-    <button {{action 'inviteUsers'}}>Invite User</button>
+    {{#if isOwner}}
+      <button {{action 'inviteUsers'}}>Invite User</button>
+    {{/if}}
     <button {{action 'showModal'}}>New Thread</button>
   </div>
 </div>
@@ -24,6 +26,7 @@
       {{thread-tile
         deleteThread=(action 'deleteThread')
         editThread=(action 'editThread')
+        isOwner=isOwner
         thread=thread}}
     {{/each}}
   </div>

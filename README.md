@@ -16,7 +16,7 @@ Visit
     localhost:4202
 
 Login with demo
-    Email: john@doe.email.com
+    Email: user0@email.com
     Password: abc123
 
 ## Intent

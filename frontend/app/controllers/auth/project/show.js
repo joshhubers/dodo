@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import gql from "graphql-tag";
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   project: alias('model.fetchProject'),
@@ -12,6 +13,11 @@ export default Controller.extend({
   isShowingInviteModal: false,
   selectedThread: null,
   apollo: service(),
+  auth: service(),
+
+  isOwner: computed('project.owner', function() {
+    return this.auth.getUserId() === this.project.owner.id;
+  }),
 
   actions: {
     inviteUsers() {

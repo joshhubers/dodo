@@ -21,7 +21,7 @@ module.exports = {
         const user = {
           firstName: `User${users.length}`,
           lastName: 'LastName',
-          email: `user${users.length}@doe.email.com`,
+          email: `user${users.length}@email.com`,
           password: pword,
           organizationId: or.id,
           createdAt: '1-1-2018',

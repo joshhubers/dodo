@@ -11,6 +11,7 @@ export default Route.extend(RouteQueryManager, {
           title
           description
           status
+          owned
         }
       }
     `;

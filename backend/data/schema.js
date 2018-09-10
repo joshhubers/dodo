@@ -30,6 +30,7 @@ const typeDefs = `
         description: String!
         status: String!
         owner: User!
+        owned: Boolean!
         members: [User]
         threads: [Thread]
         createdAt: DateTime! # will be generated
@@ -98,6 +99,7 @@ const typeDefs = `
           toUserId: Int!,
           projectId: Int!
         ): ProjectInvite
+        acceptInvite(id: Int!): Boolean
         addThread (
             title: String!,
             projectId: Int!,

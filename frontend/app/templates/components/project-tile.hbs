@@ -1,8 +1,12 @@
 <h3 class="text-center">
   {{#link-to "auth.project.show" project.id}}{{project.title}}{{/link-to}}
 </h3>
-<button {{action 'deleteProject'}}>X</button>
-<button {{action 'editProject'}}>E</button>
+
+{{#if project.owned}}
+  <button {{action 'deleteProject'}}>X</button>
+  <button {{action 'editProject'}}>E</button>
+{{/if}}
+
 <hr>
 <div>
   {{project.description}}

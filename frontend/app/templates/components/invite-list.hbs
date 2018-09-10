@@ -1,6 +1,13 @@
 {{#each invites as |invite|}}
-  <div>
-    Invite from - {{invite.from.firstName}} {{intivite.from.lastName}}
-    For Project - {{invite.project.title}}
+  <div class='tile'>
+    <div class='tile__item'>
+      Invite from - {{invite.from.firstName}} {{intivite.from.lastName}}
+    </div>
+    <div class='tile__item'>
+      For Project - {{invite.project.title}}
+    </div>
+    <div class='tile__item'>
+      <button {{action 'acceptInvite' invite.id}}>Accept Invite</button>
+    </div>
   </div>
 {{/each}}

@@ -8,8 +8,9 @@ export default Component.extend({
 
   actions: {
     logout() {
-      this.auth.logout();
-      this.router.transitionTo('login');
+      this.auth.logout().then(() => {
+        this.router.transitionTo('login');
+      });
     },
 
     openInvites() {

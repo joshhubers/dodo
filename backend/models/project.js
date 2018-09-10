@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     // A Project belongs to a user
     Project.belongsTo(models.User, { foreignKey: 'userId', as: 'owner' });
     Project.hasMany(models.Thread, { foreignKey: 'projectId', as: 'threads' });
-    Project.belongsToMany(models.User, { through: 'ProjectUser', foreignKey: 'userId', as: 'members' });
+    Project.belongsToMany(models.User, { through: 'ProjectUser', foreignKey: 'projectId', as: 'members' });
   };
 
   return Project;

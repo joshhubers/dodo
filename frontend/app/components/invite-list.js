@@ -31,4 +31,16 @@ export default Component.extend(ComponentQueryManager, {
     });
   },
 
+  actions: {
+    acceptInvite(inviteId) {
+      const acceptInviteQuery = gql`
+        mutation AcceptInvite($inviteId: Int!) {
+          acceptInvite(id: $inviteId)
+        }
+      `;
+
+      this.apollo.mutate({ mutation: acceptInviteQuery, variables: { inviteId }});
+    },
+  }
+
 });

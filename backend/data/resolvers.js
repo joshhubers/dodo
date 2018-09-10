@@ -2,7 +2,7 @@
 
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
-const { User, Project, Thread, Post, ProjectInvite } = require('../models');
+const { User, Project, ProjectUser, Thread, Post, ProjectInvite } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -36,7 +36,22 @@ const resolvers = {
         throw new Error('You must log in to continue!')
       }
 
-      return await Project.findAll({where: { userId: authUser.id }});
+      //TODO: optimize this. Could be moved into a manual SQL query
+      // I'm just moving fast and don't care as long it workkksss
+
+      const user = await User.find(
+        { 
+          where: { id: authUser.id },
+          include: [ 
+            { model: Project, as: 'ownedProjects' },
+            { model: Project, as: 'memberProjects' },
+          ] 
+        });
+
+      user.ownedProjects.forEach(op => op.owned = true);
+      user.memberProjects.forEach(up => up.owned = false);
+
+      return user.ownedProjects.concat(user.memberProjects);
     },
 
     // Fetch all project invites to a user
@@ -96,7 +111,7 @@ const resolvers = {
 
       //TODO: Add auth to check the authUser belongs to or owns the project
 
-      return await Project.find(
+      const project = await Project.find(
         { 
           where: { id }, 
           include: [
@@ -106,6 +121,16 @@ const resolvers = {
           ]
         }
       );
+
+      //Make sure they belong to the project if they don't own it.
+      if(project.userId !== authUser.id) {
+        const projectUser = await ProjectUser.find({ where: { userId: authUser.id, projectId: id } });
+        if(!projectUser) {
+          throw new Error('You do not have access to this project');
+        }
+      } 
+
+      return project;
     },
 
     async fetchThread(_, { id }) {
@@ -114,6 +139,26 @@ const resolvers = {
   },
 
   Mutation: {
+
+    async acceptInvite(_, { id }, { authUser }) {
+      if (!authUser) {
+        throw new Error('You must log in to continue!')
+      }
+
+      const invite = await ProjectInvite.find({ where: { id, toUserId: authUser.id }});
+
+      if(!invite) {
+        throw new Error('Invite not found!');
+      }
+
+      await ProjectUser.create({
+        userId: authUser.id,
+        projectId: invite.projectId
+      });
+
+      return await invite.destroy();
+    },
+
     // Handles user login
     async login(_, { email, password }) {
       const user = await User.findOne({ where: { email } });

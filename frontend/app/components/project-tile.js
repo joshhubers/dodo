@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['tile'],
+  classNames: ['tile', 'tile__block'],
   project: null,
 
   actions: {
